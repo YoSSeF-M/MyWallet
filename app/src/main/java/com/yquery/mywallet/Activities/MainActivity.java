@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
         preferences = getSharedPreferences("myMoney", MODE_PRIVATE);
 
-        // open the activity
         iHave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
