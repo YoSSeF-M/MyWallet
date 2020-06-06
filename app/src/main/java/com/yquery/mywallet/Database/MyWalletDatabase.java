@@ -6,16 +6,19 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.yquery.mywallet.DAOs.AccountsDao;
 import com.yquery.mywallet.DAOs.IHaveDao;
+import com.yquery.mywallet.Entities.AccountsEntity;
 import com.yquery.mywallet.Entities.IHaveEntity;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {IHaveEntity.class}, version = 2, exportSchema = false)
+@Database(entities = {IHaveEntity.class, AccountsEntity.class}, version = 3, exportSchema = false)
 public abstract class MyWalletDatabase extends RoomDatabase {
 
     public abstract IHaveDao iHaveDao();
+    public abstract AccountsDao accountsDao();
 
     private static volatile MyWalletDatabase INSTANCE;
     private static final int NO_OF_THREADS = 4;
