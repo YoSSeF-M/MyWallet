@@ -1,13 +1,18 @@
 package com.yquery.mywallet.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -64,6 +69,7 @@ public class WhatIHave extends AppCompatActivity {
         preferences = getSharedPreferences("myMoney", MODE_PRIVATE);
         editor = preferences.edit();
 
+
         totalMoney = Double.parseDouble(preferences.getString("money", "0.0"));
 
 
@@ -75,12 +81,12 @@ public class WhatIHave extends AppCompatActivity {
 
                 plusOrMinus = plusMinus.getText().toString();
 
-                if (plusOrMinus.equals("Add")){
+                if (plusOrMinus.equals("Add")) {
                     plusMinus.setText("Subtract");
 
                     addSub = false;
 
-                }else{
+                } else {
                     plusMinus.setText("Add");
 
                     addSub = true;
@@ -88,7 +94,6 @@ public class WhatIHave extends AppCompatActivity {
                 }
             }
         });
-
 
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +104,7 @@ public class WhatIHave extends AppCompatActivity {
 
                     detailsVal = details.getText().toString();
 
-                    if (detailsVal.isEmpty()){
+                    if (detailsVal.isEmpty()) {
                         detailsVal = "No details";
                     }
 
@@ -153,6 +158,43 @@ public class WhatIHave extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.wallet_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.deleteAll_menuItem) {
+
+            new AlertDialog.Builder(WhatIHave.this)
+                    .setTitle("Delete History")
+                    .setMessage("Are you sure you want to delete ALL history ?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            MyWalletDatabase.getDatabase(getApplicationContext()).iHaveDao().deleteAll();
+                            list.clear();
+                            adapter.notifyDataSetChanged();
+                            editor.putString("money", String.valueOf(0.0));
+                            editor.apply();
+                        }
+                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            }).show();
+
+        }
+
+        return true;
     }
 
     private void initView() {

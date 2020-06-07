@@ -38,7 +38,7 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.Accoun
         final AccountsEntity accountsEntity = accountsEntityList.get(position);
 
         holder.name.setText(accountsEntity.getName());
-        holder.value.setText(accountsEntity.getValue());
+        holder.value.setText(accountsEntity.getValue() + " EGP");
 
     }
 

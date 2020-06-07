@@ -47,7 +47,7 @@ public class AccountsActivity extends AppCompatActivity {
                         MyWalletDatabase.getDatabase(getApplicationContext()).accountsDao().insertAccount(accountsEntity);
 
                         Toast.makeText(AccountsActivity.this, "Inserted", Toast.LENGTH_SHORT).show();
-
+                        finish();
                     }
                 }
             });
@@ -70,7 +70,7 @@ public class AccountsActivity extends AppCompatActivity {
                         MyWalletDatabase.getDatabase(getApplicationContext()).accountsDao().updateAccount(accountsEntity);
 
                         Toast.makeText(AccountsActivity.this, "Updated", Toast.LENGTH_SHORT).show();
-
+                        finish();
                     }
                 }
             });
