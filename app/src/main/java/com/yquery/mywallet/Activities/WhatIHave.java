@@ -72,9 +72,6 @@ public class WhatIHave extends AppCompatActivity {
 
         totalMoney = Double.parseDouble(preferences.getString("money", "0.0"));
 
-
-        //Toast.makeText(this, ""+totalMoney, Toast.LENGTH_SHORT).show();
-
         plusMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
