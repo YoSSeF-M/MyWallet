@@ -97,6 +97,8 @@ public class WhatIHave extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                totalMoney = Double.parseDouble(preferences.getString("money", "0.0"));
+
                 if (!money.getText().toString().isEmpty()) {
 
                     detailsVal = details.getText().toString();

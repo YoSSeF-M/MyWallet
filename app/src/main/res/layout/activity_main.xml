@@ -6,48 +6,97 @@
     android:layout_height="match_parent"
     tools:context=".Activities.MainActivity">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="12dp"
-        android:padding="15dp"
-        android:layout_margin="8dp"
-        app:cardBackgroundColor="@color/cardview_dark_background"
-        app:cardCornerRadius="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/accountsRecycler"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <Button
-            android:id="@+id/iHave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:text="I have" />
-
-    </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/accountsRecycler"
-        android:layout_margin="10dp"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:listitem="@layout/accounts_list_item"
-        app:layout_constraintTop_toBottomOf="@id/cardview"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardViewLastItem"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/addAccount"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/accounts_list_item" />
 
-    <Button
-        android:layout_width="match_parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewLastItem"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/addAccount"
-        android:text="Add account"
-        app:layout_constraintTop_toBottomOf="@+id/accountsRecycler"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_margin="8dp"
+        app:cardBackgroundColor="@color/colorAccent"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/accountsRecycler">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/lastTransactionInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Last transaction info :"
+                android:textSize="20sp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/lastTransactionMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Main Transaction"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lastTransactionInfo" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardBackgroundColor="@color/colorAccent"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewLastItem">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/addAccount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="Add account"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/iHave"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/iHave"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="I have"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/addAccount"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

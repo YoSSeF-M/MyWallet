@@ -5,13 +5,16 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.yquery.mywallet.Adapters.AccountsAdapter;
 import com.yquery.mywallet.Database.MyWalletDatabase;
+import com.yquery.mywallet.Entities.IHaveEntity;
 import com.yquery.mywallet.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     protected Button iHave;
     protected RecyclerView accountsRecycler;
     protected Button addAccount;
+    protected TextView lastTransactionMain;
+    protected CardView cardViewLastItem;
     AccountsAdapter adapter;
 
     SharedPreferences preferences;
@@ -50,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     @Override
@@ -61,12 +67,31 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new AccountsAdapter(this, MyWalletDatabase.getDatabase(getApplicationContext()).accountsDao().getAllAccounts());
         accountsRecycler.setAdapter(adapter);
+
+        if (!totalMoney.equals("0.0")) {
+
+            cardViewLastItem.setVisibility(View.VISIBLE);
+
+            IHaveEntity iHaveEntity = MyWalletDatabase.getDatabase(getApplicationContext()).iHaveDao().lastWalletItem();
+
+            if (iHaveEntity.isAdded()) {
+                lastTransactionMain.setText("You added : " + iHaveEntity.getEnteredMoney() + " EGP , at : " + iHaveEntity.getTime());
+            } else {
+                lastTransactionMain.setText("You paid : " + iHaveEntity.getEnteredMoney() + " EGP , at : " + iHaveEntity.getTime());
+            }
+
+        } else {
+            cardViewLastItem.setVisibility(View.GONE);
+        }
+
     }
 
     private void initView() {
         iHave = (Button) findViewById(R.id.iHave);
         accountsRecycler = (RecyclerView) findViewById(R.id.accountsRecycler);
         addAccount = (Button) findViewById(R.id.addAccount);
+        lastTransactionMain = (TextView) findViewById(R.id.lastTransactionMain);
+        cardViewLastItem = (CardView) findViewById(R.id.cardViewLastItem);
 
     }
 }

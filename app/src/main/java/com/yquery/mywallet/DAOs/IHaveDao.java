@@ -14,6 +14,9 @@ public interface IHaveDao {
     @Query("SELECT * FROM IHaveEntity")
     List<IHaveEntity> getAll();
 
+    @Query("SELECT * FROM IHaveEntity ORDER BY transactionID DESC LIMIT 1")
+    IHaveEntity lastWalletItem();
+
     @Insert
     void insert(IHaveEntity iHaveEntity);
 
