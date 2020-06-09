@@ -59,7 +59,9 @@ public class WhatIHave extends AppCompatActivity {
         super.setContentView(R.layout.activity_what_i_have);
         initView();
 
-        recycler.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+
+        recycler.setLayoutManager(layoutManager);
         list = MyWalletDatabase.getDatabase(getApplicationContext()).iHaveDao().getAll();
 
         adapter = new IHaveAdapter(this, list);
@@ -152,6 +154,9 @@ public class WhatIHave extends AppCompatActivity {
                     plusMinus.setText("Add");
 
                     MyWalletDatabase.getDatabase(getApplicationContext()).iHaveDao().insert(haveEntity);
+
+                    Toast.makeText(WhatIHave.this, "Inserted", Toast.LENGTH_SHORT).show();
+                    recycler.smoothScrollToPosition(adapter.getItemCount() - 1);
                 }
 
             }

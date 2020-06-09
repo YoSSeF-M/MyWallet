@@ -55,6 +55,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        cardViewLastItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, WhatIHave.class));
+            }
+        });
 
     }
 
@@ -63,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         totalMoney = preferences.getString("money", "0.0");
-        iHave.setText(totalMoney);
+        iHave.setText(totalMoney + " EGP");
 
         adapter = new AccountsAdapter(this, MyWalletDatabase.getDatabase(getApplicationContext()).accountsDao().getAllAccounts());
         accountsRecycler.setAdapter(adapter);

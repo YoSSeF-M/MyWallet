@@ -23,10 +23,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        app:cardBackgroundColor="@color/colorAccent"
+        app:cardBackgroundColor="@color/mainColor"
         app:cardCornerRadius="10dp"
         app:cardElevation="8dp"
-        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Last transaction info :"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -52,6 +51,7 @@
                 android:layout_height="wrap_content"
                 android:text="Main Transaction"
                 android:textSize="20sp"
+                android:textColor="@android:color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/lastTransactionInfo" />
 
@@ -63,7 +63,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        app:cardBackgroundColor="@color/colorAccent"
+        app:cardBackgroundColor="@color/mainColor"
         app:cardCornerRadius="10dp"
         app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
