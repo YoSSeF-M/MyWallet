@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (!totalMoney.equals("0.0")) {
 
-            cardViewLastItem.setVisibility(View.VISIBLE);
+            cardViewLastItem.setVisibility(View.GONE);
 
             IHaveEntity iHaveEntity = MyWalletDatabase.getDatabase(getApplicationContext()).iHaveDao().lastWalletItem();
 

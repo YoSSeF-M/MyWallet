@@ -21,6 +21,7 @@
             android:lines="1"
             android:maxLines="1"
             android:singleLine="true"
+            android:textColor="#202020"
             android:text="detail"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/dateAndTime"
