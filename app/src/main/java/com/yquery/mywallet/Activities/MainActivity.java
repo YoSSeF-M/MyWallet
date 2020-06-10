@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.yquery.mywallet.Adapters.AccountsAdapter;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        accountsRecycler.setLayoutManager(new GridLayoutManager(this, 2));
+        accountsRecycler.setLayoutManager(new LinearLayoutManager(this));
 
 
         addAccount.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (!totalMoney.equals("0.0")) {
 
-            cardViewLastItem.setVisibility(View.GONE);
+            cardViewLastItem.setVisibility(View.VISIBLE);
 
             IHaveEntity iHaveEntity = MyWalletDatabase.getDatabase(getApplicationContext()).iHaveDao().lastWalletItem();
 
