@@ -29,10 +29,33 @@
         android:layout_marginEnd="10dp"
         android:hint="Enter Account Value"
         android:inputType="numberDecimal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/addedSubtractedValueEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/accountNameEditText" />
+
+    <Button
+        android:id="@+id/plusMinus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/addedSubtractedValueEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/addedSubtractedValueEditText" />
+
+    <EditText
+        android:id="@+id/addedSubtractedValueEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:hint="Enter Value"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/plusMinus"
+        app:layout_constraintTop_toBottomOf="@id/accountValueEditText" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"

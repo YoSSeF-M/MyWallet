@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,6 +22,8 @@ public class AccountsActivity extends AppCompatActivity {
 
     protected EditText accountNameEditText;
     protected EditText accountValueEditText;
+    protected Button plusMinus;
+    protected EditText addedSubtractedValueEditText;
     FloatingActionButton floatingActionButton;
 
     AccountsEntity accountsEntity;
@@ -30,6 +33,10 @@ public class AccountsActivity extends AppCompatActivity {
 
     MenuItem deleteItem;
 
+    String plusOrMinus;
+
+    boolean addSub = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +45,30 @@ public class AccountsActivity extends AppCompatActivity {
 
         accountsEntity = (AccountsEntity) getIntent().getSerializableExtra("account");
 
+        plusMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        if (accountsEntity == null){
+                plusOrMinus = plusMinus.getText().toString();
+
+                if (plusOrMinus.equals("Add")) {
+                    plusMinus.setText("Subtract");
+
+                    addSub = false;
+
+                } else {
+                    plusMinus.setText("Add");
+
+                    addSub = true;
+
+                }
+            }
+        });
+
+        if (accountsEntity == null) {
+
+            addedSubtractedValueEditText.setVisibility(View.GONE);
+            plusMinus.setVisibility(View.GONE);
 
             floatingActionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -47,6 +76,7 @@ public class AccountsActivity extends AppCompatActivity {
 
                     nameValue = accountNameEditText.getText().toString().trim();
                     valueValue = accountValueEditText.getText().toString().trim();
+
 
                     if (!nameValue.isEmpty() && !valueValue.isEmpty()) {
 
@@ -62,7 +92,10 @@ public class AccountsActivity extends AppCompatActivity {
                     }
                 }
             });
-        }else {
+        } else {
+
+            addedSubtractedValueEditText.setVisibility(View.VISIBLE);
+            plusMinus.setVisibility(View.VISIBLE);
 
             accountNameEditText.setText(accountsEntity.getName());
             accountValueEditText.setText(accountsEntity.getValue());
@@ -74,15 +107,46 @@ public class AccountsActivity extends AppCompatActivity {
                     nameValue = accountNameEditText.getText().toString().trim();
                     valueValue = accountValueEditText.getText().toString().trim();
 
-                    if (!nameValue.isEmpty() && !valueValue.isEmpty()) {
+                    if (addedSubtractedValueEditText.getText().toString().isEmpty()) {
 
-                        accountsEntity.setName(nameValue);
-                        accountsEntity.setValue(valueValue);
 
-                        MyWalletDatabase.getDatabase(getApplicationContext()).accountsDao().updateAccount(accountsEntity);
+                        if (!nameValue.isEmpty() && !valueValue.isEmpty()) {
 
-                        Toast.makeText(AccountsActivity.this, "Updated", Toast.LENGTH_SHORT).show();
-                        finish();
+                            accountsEntity.setName(nameValue);
+                            accountsEntity.setValue(valueValue);
+
+                            MyWalletDatabase.getDatabase(getApplicationContext()).accountsDao().updateAccount(accountsEntity);
+
+                            Toast.makeText(AccountsActivity.this, "Updated", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    } else {
+                        plusOrMinus = plusMinus.getText().toString();
+                        if (plusOrMinus.equals("Add")) {
+                            addSub = true;
+                        } else {
+                            addSub = false;
+                        }
+
+                        double totalMoney;
+                        if (!nameValue.isEmpty() && !valueValue.isEmpty()) {
+
+                            if (addSub){
+                                totalMoney = Double.parseDouble(valueValue) + Double.parseDouble(addedSubtractedValueEditText.getText().toString());
+                            }else{
+                                totalMoney = Double.parseDouble(valueValue) - Double.parseDouble(addedSubtractedValueEditText.getText().toString());
+                            }
+
+                            accountsEntity.setName(nameValue);
+                            accountsEntity.setValue(String.valueOf(totalMoney));
+
+                            MyWalletDatabase.getDatabase(getApplicationContext()).accountsDao().updateAccount(accountsEntity);
+
+                            Toast.makeText(AccountsActivity.this, "Updated", Toast.LENGTH_SHORT).show();
+                            finish();
+
+                        }
+
                     }
                 }
             });
@@ -103,9 +167,9 @@ public class AccountsActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
 
-        if (accountsEntity == null){
+        if (accountsEntity == null) {
             deleteItem.setVisible(false);
-        }else{
+        } else {
             deleteItem.setVisible(true);
         }
 
@@ -115,7 +179,7 @@ public class AccountsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (item.getItemId() == R.id.deleteAccount_menuItem){
+        if (item.getItemId() == R.id.deleteAccount_menuItem) {
 
             new AlertDialog.Builder(AccountsActivity.this)
                     .setTitle("Delete Account")
@@ -143,5 +207,7 @@ public class AccountsActivity extends AppCompatActivity {
         accountNameEditText = (EditText) findViewById(R.id.accountNameEditText);
         accountValueEditText = (EditText) findViewById(R.id.accountValueEditText);
         floatingActionButton = findViewById(R.id.fab);
+        plusMinus = (Button) findViewById(R.id.plusMinus);
+        addedSubtractedValueEditText = (EditText) findViewById(R.id.addedSubtractedValueEditText);
     }
 }
